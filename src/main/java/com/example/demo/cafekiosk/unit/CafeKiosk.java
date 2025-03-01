@@ -3,6 +3,7 @@ package com.example.demo.cafekiosk.unit;
 import com.example.demo.cafekiosk.unit.beverage.Beverage;
 import com.example.demo.cafekiosk.unit.order.Order;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -10,28 +11,38 @@ import lombok.Getter;
 @Getter
 public class CafeKiosk {
 
-  private final List<Beverage> beverages = new ArrayList<>();
+    private final List<Beverage> beverages = new ArrayList<>();
 
-  public void add(Beverage beverage) {
-    beverages.add(beverage);
-  }
+    public void add(Beverage beverage) {
+        beverages.add(beverage);
+    }
 
-  public void remove(Beverage beverage) {
-    beverages.remove(beverage);
-  }
+    public void add(Beverage beverage, int count) {
+        if (count <= 0) {
+            throw new IllegalArgumentException("음료는 1잔 이상 주문하실 수 있습니다.");
+        }
 
-  public void clear() {
-    beverages.clear();
-  }
+        for (int i = 0; i < count; i++) {
+            beverages.add(beverage);
+        }
+    }
 
-  public int calculateTotalPrice() {
-    return beverages.stream()
-        .mapToInt(Beverage::getPrice)
-        .sum();
-  }
+    public void remove(Beverage beverage) {
+        beverages.remove(beverage);
+    }
 
-  public Order createOrder() {
-    return new Order(LocalDateTime.now(), beverages);
-  }
+    public void clear() {
+        beverages.clear();
+    }
+
+    public int calculateTotalPrice() {
+        return beverages.stream()
+                .mapToInt(Beverage::getPrice)
+                .sum();
+    }
+
+    public Order createOrder() {
+        return new Order(LocalDateTime.now(), beverages);
+    }
 
 }
