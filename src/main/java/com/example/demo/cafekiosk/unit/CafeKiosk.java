@@ -45,7 +45,7 @@ public class CafeKiosk {
     }
 
     public Order createOrder() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now();    // 테스트하기 어려운 부분
         LocalTime currentTime = currentDateTime.toLocalTime();
 
         if (currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME)) {
@@ -55,7 +55,7 @@ public class CafeKiosk {
         return new Order(currentDateTime, beverages);
     }
 
-    public Order createOrder(LocalDateTime currentDateTime) {
+    public Order createOrder(LocalDateTime currentDateTime) {   // 테스트를 하기 위한 구조 고민으로 파라미터로 LocalDateTime 을 분리
         LocalTime currentTime = currentDateTime.toLocalTime();
 
         if (currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME)) {
